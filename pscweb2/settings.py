@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 import psycopg2
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,8 +47,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,14 +88,16 @@ WSGI_APPLICATION = 'pscweb2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hakadorukun',
-        'USER': 'akanee',
+        'NAME': 'd1jdqgv37m97k2',
+        'USER': 'ce2c4aac0c8e159d251a465749b1bbac1863af85376ef2309f0f6cf2e9e275d7',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'HOST': 'ec2-3-225-204-194.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
