@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5*&beapf(lhn=u$#r%r!uie1w&nbhhj*56r30sic(d3!#p673g'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -141,11 +141,13 @@ LOGIN_URL = 'user_app:login'
 #LOGIN_REDIRECT_URL = 'production:prpduction_list'
 LOGOUT_REDIRECT_URL = 'user_app:login'
 
+if not DEBUG:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    import django_heroku
+    django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
